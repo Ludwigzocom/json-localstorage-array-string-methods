@@ -6,8 +6,15 @@ const errorText = document.querySelector("#error");
 const listBtn = document.querySelector("#listBtn");
 const removeLastBtn = document.querySelector("#removeLastBtn");
 const titlesBtn = document.querySelector("#titlesBtn");
+const clearBtn = document.querySelector("#clearBtn");
 
-const movies = [];
+const saved = localStorage.getItem("movies");
+const movies = JSON.parse(saved) || [];
+
+function save() {
+  const text = JSON.stringify(movies);
+  localStorage.setItem("movies", text);
+}
 
 form.addEventListener("submit", function (event) {
   event.preventDefault();
@@ -63,7 +70,7 @@ form.addEventListener("submit", function (event) {
   };
 
   movies.push(newMovie);
-  console.log(movies);
+  save();
 
   titleInput.value = "";
   directorInput.value = "";
@@ -84,6 +91,7 @@ listBtn.addEventListener("click", function () {
 
 removeLastBtn.addEventListener("click", function () {
   movies.pop();
+  save();
   console.log("Removed last. Left: " + movies.length);
 });
 
@@ -95,4 +103,10 @@ titlesBtn.addEventListener("click", function () {
   }
 
   console.log(titles.join(", "));
+});
+
+clearBtn.addEventListener("click", function () {
+  movies.splice(0, movies.length);
+  localStorage.removeItem("movies");
+  console.log("All movie data has been removed!");
 });

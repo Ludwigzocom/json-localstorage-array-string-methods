@@ -28,7 +28,8 @@ body {
 
 #listBtn,
 #removeLastBtn,
-#titlesBtn {
+#titlesBtn,
+#clearBtn {
   min-height: 2.5rem;
   min-width: 8rem;
   font-size: 1rem;
